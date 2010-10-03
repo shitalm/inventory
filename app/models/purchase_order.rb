@@ -8,6 +8,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :vendor
   has_many :line_orders, :dependent => :destroy 
 	has_many :purchase_order_parts, :dependent => :destroy 
+	has_many :payments, :as => :payable, :dependent => :destroy
 
 	before_update :update_price, :update_parts
 	#before_save :update_price, :update_parts
@@ -18,6 +19,10 @@ class PurchaseOrder < ActiveRecord::Base
 		line_orders.each {|line| pp(line) }
 		puts "#{description} (id=#{id}) has no order parts" if purchase_order_parts.empty?
 		purchase_order_parts.each {|line| pp(line) }
+	end
+
+	def paid
+		Payment.sum('amount', :conditions => "payable_type = 'PurchaseOrder' AND payable_id = '#{id}'")
 	end
 
 	def delivered

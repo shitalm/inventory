@@ -2,6 +2,7 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :customer
 	has_many :sale_order_lines, :dependent => :destroy 
 	has_many :sale_order_parts, :dependent => :destroy
+  has_many :payments, :as => :payable, :dependent => :destroy
 
   before_update :update_price, :update_parts
 
@@ -12,6 +13,11 @@ class SaleOrder < ActiveRecord::Base
     puts "#{name} (id=#{id}) has no order parts" if sale_order_lines.empty?
     sale_order_parts.each {|line| pp(line) }
   end
+
+  def paid
+    Payment.sum('amount', :conditions => "payable_type = 'SaleOrder' AND payable_id = '#{id}'")
+  end
+
 
   def delivered
     if sale_order_parts.all? {|part| part.delivered == part.sold}
