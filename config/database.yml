@@ -17,10 +17,11 @@ test:
 
 production:
   adapter: mysql
-	encoding: utf8
-	reconnect: false
+  encoding: utf8
   database: stock
   pool: 5
-	username: stock
-	password: stock
-	host: localhost
+  username: stock
+  password: stock
+  host: localhost
+
+
