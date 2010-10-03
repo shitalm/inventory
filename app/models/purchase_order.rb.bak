@@ -1,0 +1,18 @@
+class PurchaseOrder < ActiveRecord::Base
+  def to_label
+    "#{description}"
+  end
+  belongs_to :vendor
+  has_many :line_orders
+
+	def delivered
+		flag = true
+		@line_orders.each do |order|
+			if(order.itemCount != order.deliveredCount)
+				flag = false
+			end
+		end
+		puts "========= delivered = #{delivered}"
+	end
+
+end

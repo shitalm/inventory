@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customer: 
+  item: 
+  item_count: 1
+  delivered_count: 1
+  unit_price: 1.5
+  total_price: 1.5
+
+two:
+  customer: 
+  item: 
+  item_count: 1
+  delivered_count: 1
+  unit_price: 1.5
+  total_price: 1.5

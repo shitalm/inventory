@@ -1,0 +1,45 @@
+class StockController < ApplicationController
+  def index
+		calculate_item_inventory
+	end
+
+	def calculate_item_inventory
+		@items = Item.find(:all)
+		@inventory = Hash.new
+		@parts_inventory = Hash.new
+		@items.each do |item|
+			purchased = LineOrder.sum('itemCount', :conditions => "item_id = #{item.id}")
+			vendor_delivered = LineOrder.sum('deliveredCount', :conditions => "item_id = #{item.id}")
+			sold = SaleOrderLine.sum('item_count', :conditions => "item_id = #{item.id}")
+			customer_delivered = SaleOrderLine.sum('delivered_count', :conditions => "item_id = #{item.id}")
+			in_stock = vendor_delivered - customer_delivered
+			further_expected = purchased - vendor_delivered
+			customer_due = sold - customer_delivered
+			item_inventory = {:item => item, :purchased => purchased, :vendor_delivered => vendor_delivered, :sold => sold, :customer_delivered => customer_delivered, :in_stock => in_stock, :further_expected => further_expected, :customer_due => customer_due}
+		
+			#puts "inventory for #{item.name} is " 
+			#item_inventory.each_pair {|key, value| puts "#{key} = #{value}" }
+			@inventory[item.id] = item_inventory
+		end
+
+		#calculate parts inventory
+		@inventory.each_pair do |item_id, item_stock| 
+			puts "Item : #{item_stock[:item].name} "
+			item_stock[:item].parts.each do |part|
+				if @parts_inventory[part.id].nil?
+					@parts_inventory[part.id] = Hash.new
+					@parts_inventory[part.id][:part] = part
+					item_stock.keys.each do |key|  
+						print "Part = #{part.name} key = #{key} "
+						@parts_inventory[part.id][key] = item_stock[key] if key != :item; 
+						puts @parts_inventory[part.id][key] 
+					end
+				else
+					item_stock.keys.each { |key| @parts_inventory[part.id][key] = @parts_inventory[part.id][key] + item_stock[key] if key != :item }
+				end
+			end
+		end
+
+  end
+
+end

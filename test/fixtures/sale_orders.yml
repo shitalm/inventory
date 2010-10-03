@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customer: 
+  name: MyString
+  sale_date: 2010-09-10
+  price: 1.5
+
+two:
+  customer: 
+  name: MyString
+  sale_date: 2010-09-10
+  price: 1.5

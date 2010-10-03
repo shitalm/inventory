@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  expense_type: 
+  date: 2010-09-18
+  amount: 1.5
+  expense_entity: 
+
+two:
+  expense_type: 
+  date: 2010-09-18
+  amount: 1.5
+  expense_entity: 

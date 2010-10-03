@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  itemCount: 1
+  deliveredCount: 1
+  purchaseOrder: 
+  item: 
+
+two:
+  itemCount: 1
+  deliveredCount: 1
+  purchaseOrder: 
+  item: 

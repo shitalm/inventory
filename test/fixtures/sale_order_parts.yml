@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sale_order: 
+  part: 
+  sold: 1
+  delivered: 1
+
+two:
+  sale_order: 
+  part: 
+  sold: 1
+  delivered: 1

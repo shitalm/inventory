@@ -1,0 +1,55 @@
+<h1>Item Inventory</h1>
+
+<% attrs= @inventory.values[0] %>
+<table>
+<thead>
+	<tr> 
+	<td> Item </td> 
+	<td> Purchased </td>
+	<td> Sold </td>
+	</tr>
+</thead>
+<tbody>
+<% @inventory.each_pair do |item_id, stock| %>
+	<tr> 
+	<td> <%= stock[:item].name %> </td>
+	<td> <%= stock[:purchased] %> </td>
+	<td> <%= stock[:sold] %> </td>
+	</tr>
+	<% end %>
+</tbody>
+
+</table>
+<p/> <p/>
+<h1>Parts Inventory</h1>
+<table>
+<thead>
+	<tr> 
+	<td> Part </td>
+	<td> Purchased </td>
+	<td> Delivered by Vendor </td>
+	<td> Sold </td>
+	<td> Delivered to customer </td>
+	<td> In stock </td>
+	<td> Further expected </td>
+	<td> Customer Due </td>
+	<td> Status </td>
+	</tr>
+</thead>
+
+<tbody>
+<% @parts_inventory.each_pair do |part_id, stock| %>
+	<tr class="<%=stock[:status][:type]%>">
+	<td> <%= stock[:part].name %> </td>
+	<td> <%= stock[:purchased] %> </td>
+	<td> <%= stock[:vendor_delivered] %> </td>
+	<td> <%= stock[:sold] %> </td>
+	<td> <%= stock[:customer_delivered] %> </td>
+	<td> <%= stock[:in_stock] %> </td>
+	<td> <%= stock[:further_expected] %> </td>
+	<td> <%= stock[:customer_due] %> </td>
+	<td> <%= stock[:status][:message] %> </td>
+	</tr>
+<% end %>
+</tbody>
+</table>	
